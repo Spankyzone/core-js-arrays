@@ -480,8 +480,10 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  return arr.map(
+    (num) => `#${num.toString(16).toUpperCase().padStart(6, '0')}`
+  );
 }
 
 /**
@@ -517,8 +519,11 @@ function getMaxItems(arr, n) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  const conc = arr1.concat(arr2);
+  return conc.filter((el, index, arr) => {
+    return arr.indexOf(el) !== index;
+  });
 }
 
 /**
@@ -532,8 +537,17 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  return nums.reduce(
+    (sequence, num) => {
+      if (num > sequence[sequence.length - 1]) {
+        sequence.push(num);
+      }
+      sequence[sequence.findIndex((val) => val >= num)] = num;
+      return sequence;
+    },
+    [nums[0]]
+  ).length;
 }
 
 /**
@@ -567,8 +581,16 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  let num = n;
+  if (num < 0) {
+    num = Math.abs(num);
+    return arr.slice(num).concat(arr.slice(0, num));
+  }
+  if (num > 0) {
+    return arr.slice(-num).concat(arr.slice(0, -num));
+  }
+  return arr;
 }
 
 /**
